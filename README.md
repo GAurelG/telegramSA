@@ -3,6 +3,7 @@
 I am trying to build a Sentiment analysis pipeline to analyse data from a telegram chat and estimate my mood over the different days.
 I will use the export function provided in the Telegram client, it outputs html files.
 Two other method that could work to get the data and might provide another format:
+
     - using a telagram terminal client
     - creating a telegramBot:
         + good = could have real time analysis
