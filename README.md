@@ -15,10 +15,10 @@ Two other method that could work to get the data and might provide another forma
 [] store the data (probably in some kind of database, could play with timeserie database to learn, even if it seems overscaled for such a small amount of data
 
 Some things that might be problematic:
-    - handle voice message
-    - handle handle pictures or video (if it is in the actual extract)
-    - maybe detect the language of the message as they can vary (and how to handle mix of languages in one message (could split per sentence but need to detect that case)
-    - handle emoji (might actually be ok, more problematic for the sentiment analysis
+- handle voice message
+- handle handle pictures or video (if it is in the actual extract)
+- maybe detect the language of the message as they can vary (and how to handle mix of languages in one message (could split per sentence but need to detect that case)
+- handle emoji (might actually be ok, more problematic for the sentiment analysis
 
 ## Sentiment scoring
 
