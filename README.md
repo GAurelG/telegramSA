@@ -11,8 +11,8 @@ Two other method that could work to get the data and might provide another forma
 
 ## Pre-processing the chat data
 
-[ ] parsing the html files to extract username, date, time
-[ ] store the data (probably in some kind of database, could play with timeserie database to learn, even if it seems overscaled for such a small amount of data
+- [ ] parsing the html files to extract username, date, time
+- [ ] store the data (probably in some kind of database, could play with timeserie database to learn, even if it seems overscaled for such a small amount of data
 
 Some things that might be problematic:
 - handle voice message
