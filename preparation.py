@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from pathlib import Path
 from bs4 import BeautifulSoup
+import psycopg2
+import sys
 
 current_path = Path(__file__).parent
 file_path = (current_path / "./Data/messages.html").resolve()
@@ -57,3 +59,30 @@ strange = soup.find(attrs={"id" : "message175714"})
 strange
 strange.find(attrs = {"class" : "from_name"}).next_sibling.next_sibling
 
+def save_message(message, dbconn):
+    # function that saves one message at a time?
+    pass
+
+def db_setup():
+
+#example db setup from doc
+
+con = None
+try
+    con = psycopg2.connect("host='localhost' dbname='testdb' password='password'")
+    cur = con.cursor()
+    cur = cur.execute("CREATE TABLE Products(Id INTEGER PRIMARY KEY, Name VARCHAR(20), Price INT)")
+    cur = cur.execute(INSERT INTO Products VALUES(2,'Sugar',7)")
+    cur.execute("INSERT INTO Products VALUES(3,'Coffee',3)")
+    cur.execute("INSERT INTO Products VALUES(4,'Bread',5)")
+    cur.execute("INSERT INTO Products VALUES(5,'Oranges',3)")
+    con.commit()
+except psycopg2.DatabaseError, e:
+    if con:
+         con.rollback()
+     print 'Error %s' % e    
+    sys.exit(1)
+    
+finally:   
+    if con:
+        con.close()
