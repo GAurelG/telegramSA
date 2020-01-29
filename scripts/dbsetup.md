@@ -44,7 +44,7 @@ Having multiple chat could help explore correlation between chats sentiments and
     ```CREATE SCHEMA chatjoin;```
     ```
     CREATE TABLE chatjoin.fiau1(
-        id SERIAL PRIMARY KEY,
+        message_id SERIAL PRIMARY KEY,
         chat VARCHAR(50),
         messageID INTEGER,
         sender VARCHAR(20),
@@ -52,6 +52,9 @@ Having multiple chat could help explore correlation between chats sentiments and
         media TEXT,
         raw_message TEXT
     );
+    CREATE TABLE chatjoin.chat(
+        chat_id
+        chat
 
     CREATE TABLE chatjoin.hastags(
         id SERIAL PRIMARY KEY,
