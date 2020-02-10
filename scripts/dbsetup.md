@@ -43,28 +43,32 @@ Having multiple chat could help explore correlation between chats sentiments and
 
     ```CREATE SCHEMA chatjoin;```
     ```
-    CREATE TABLE chatjoin.fiau1(
+    CREATE TABLE chatjoin.messages(
         message_id SERIAL PRIMARY KEY,
-        chat VARCHAR(50),
-        messageID INTEGER,
+        chat_id INTEGER REFERENCES chat(chat_id),
+        tlgmessageID INTEGER,
         sender VARCHAR(20),
         message TEXT,
         media TEXT,
         raw_message TEXT
     );
+
     CREATE TABLE chatjoin.chat(
-        chat_id
-        chat
+        chat_id SERIAL PRIMARY KEY,
+        chat_name VARCHAR(50)
+    );
 
     CREATE TABLE chatjoin.hastags(
-        id SERIAL PRIMARY KEY,
-        message_id INTEGER REFERENCES fiau1(id),
+        hashtag_id SERIAL PRIMARY KEY,
+        message_id INTEGER REFERENCES message s(message_id),
+        chat_id INTEGER REFERENCES chat(chat_id),
         hashtag VARCHAR(100)
     );
 
     CREATE TABLE chatjoin.links(
-       id SERIAL PRIMARY KEY,
-       message_id INTEGER REFERENCES fiau1(id),
+       links_id SERIAL PRIMARY KEY,
+       message_id INTEGER REFERENCES messages(message_id),
+       chat_id INTEGER REFERENCES chat(chat_id),
        links TEXT
     );
 
