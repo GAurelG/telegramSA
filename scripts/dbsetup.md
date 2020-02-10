@@ -48,6 +48,7 @@ Having multiple chat could help explore correlation between chats sentiments and
         chat_id INTEGER REFERENCES chat(chat_id),
         tlgmessageID INTEGER,
         sender VARCHAR(20),
+        time TEXT
         message TEXT,
         media TEXT,
         raw_message TEXT
@@ -60,7 +61,7 @@ Having multiple chat could help explore correlation between chats sentiments and
 
     CREATE TABLE chatjoin.hastags(
         hashtag_id SERIAL PRIMARY KEY,
-        message_id INTEGER REFERENCES message s(message_id),
+        message_id INTEGER REFERENCES messages(message_id),
         chat_id INTEGER REFERENCES chat(chat_id),
         hashtag VARCHAR(100)
     );
@@ -69,7 +70,7 @@ Having multiple chat could help explore correlation between chats sentiments and
        links_id SERIAL PRIMARY KEY,
        message_id INTEGER REFERENCES messages(message_id),
        chat_id INTEGER REFERENCES chat(chat_id),
-       links TEXT
+       link TEXT
     );
 
     ```

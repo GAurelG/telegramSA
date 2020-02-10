@@ -27,9 +27,9 @@ def cleanLinks(html_links_list):
     return ret
 
 def extractMessage(html_message):
-    msg = { "message_id" : html_message['id'],
+    msg = { "tlgmessageID" : html_message['id'],
             "time" : html_message.find(attrs = {"class" : "date"})['title'],
-            "user" : html_message.find(attrs = {"class" : "from_name"}).string,
+            "sender" : html_message.find(attrs = {"class" : "from_name"}).string,
             "message" :  None,
             "hashtag" : cleanHashtags(html_message.find_all(attrs = {"onclick" : re.compile("ShowHashtag(.*)")})),
             "links" : cleanLinks(html_message.find_all(href=re.compile("."))),
@@ -59,11 +59,35 @@ strange = soup.find(attrs={"id" : "message175714"})
 strange
 strange.find(attrs = {"class" : "from_name"}).next_sibling.next_sibling
 
-def save_message(message, dbcon):
+def save_message(message, dbcon, chat_id):
     # function that saves one message at a time?
+    message["chat_id"] = chat_id
     cur = con.cursor()
-    cur = cur.execute("INSERT INTO chatjoin.fiau1(chat, messageID, sender, message, media, raw_message) 
-   
+    cur = cur.execute("""INSERT INTO chatjoin.fiau1(
+    chat_id, tlgmessageID, sender, time, message, media, raw_message) 
+    VALUES (
+    %(chat_id)s, %(tlgmessageID)s, %(sender)s, %(time)s, 
+    %(message)s, %(media)s,%(raw_message)s)
+    RETURNING message_id as message_id;""", message)
+    message_id = cur.fetchall()[0][0]
+    for hastag in message[hashtag]:
+        cur = cur.execute("""INSERT INTO chatjoin.hashtags(message_id, chat_id, hastag)
+        VALUES (%(message_id)s, %(chat_id)s, %(hashtag)s);""",
+        {"message_id" : message_id, "chat_id" : chat_id, "hashtag" : hastag})
+
+    for link in message[links]:
+        cur = cur.execute("""INSERT INTO chatjoin.links(message_id, chat_id, link)
+        VALUES (%(message_id)s, %(chat_id)s, %(link)s);""",
+        {"message_id" : message_id, "chat_id" : chat_id, "hashtag" : link})
+    con.commit()
+    return(0)
+
+# need to handle errors in function above, but let's get a POC running first
+
+def insert_chat(chat_name, dbcon):
+    pass
+
+def get_chat_id(chat_name, dbcon):
     pass
 
 def db_setup():
